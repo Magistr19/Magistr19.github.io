@@ -1860,6 +1860,7 @@ body {
 
 .filter-container-fatpercent label {
 	position: relative;
+	display: block;
 
 	padding-left: 33px;
 }
@@ -1913,6 +1914,7 @@ body {
 
 .filter-container-fillers label {
 	position: relative;
+	display: block;
 
 	padding-left: 33px;
 }
