@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1</title>
+    <link rel="stylesheet" href="css//bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/styles.css" rel="stylesheet">
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sample">
+            <form v-if="!isFormSubmitted"
+				  @submit.prevent="isFormSubmitted = true"
+			>
+        		<div class="progress">
+					<div class="progress-bar" :style="setProgressBar"></div>
+				</div>
+				<div>
+					<div class="form-group" v-for="(item, index) in info">
+	                    <label>{{item.name}}</label>
+						<span class="fa"
+							  :class="checkValidation(index) ? 'fa-check-circle text-success' : 'fa-exclamation-circle text-danger'"
+							  v-show="item.isActivated"
+						>
+	                    </span>
+
+	                    <input type="text" class="form-control" v-model="item.value" @input="switchToActive(index)">
+	                </div>
+				</div>
+				<button class="btn btn-primary"
+						v-show="isAllValid"
+				>
+					Send Data
+				</button>
+			</form>
+			<div v-else>
+				<table class="table table-bordered">
+					<tr v-for="item in info">
+						<td>{{item.name}}</td>
+						<td>{{item.value}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+    </div>
+	<script>
+		
+		new Vue({
+			el: '.sample',
+			data: {
+				info: [
+					{
+						name: 'Name',
+						value: '',
+						pattern: /^[a-zA-Z ]{2,30}$/,
+						isActivated: false,
+						isValid: false
+					},
+					{
+						name: 'Phone',
+						value: '',
+						pattern: /^[0-9]{7,14}$/,
+						isActivated: false,
+						isValid: false
+					},
+					{
+						name: 'Email',
+						value: '',
+						pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/,
+						isActivated: false,
+						isValid: false
+					},
+					{
+						name: 'Some Field 1',
+						value: '',
+						pattern: /.+/,
+						isActivated: false,
+						isValid: false
+					},
+					{
+						name: 'Some Field 2',
+						value: '',
+						pattern: /.+/,
+						isActivated: false,
+						isValid: false
+					}
+				],
+				isFormSubmitted: false
+			},
+			methods: {
+				checkValidation(index) {
+					return this.info[index].isValid = this.info[index].pattern.test(this.info[index].value);
+				},
+				switchToActive(index) {
+					this.info[index].isActivated = true;
+				}
+			},
+			computed: {
+				setProgressBar() {
+					let countValid = 0;
+					for(let i = 0; i < this.info.length; i++) {
+						if (this.info[i].isValid) {
+							countValid++;
+						}
+					}
+
+					return `width: ${countValid/this.info.length * 100}%;`;
+				},
+				isAllValid() {
+					let countValid = 0;
+
+					for(let i = 0; i < this.info.length; i++) {
+						if (this.info[i].isValid) {
+							countValid++;
+						}
+					}
+
+					return countValid === this.info.length;
+				}
+			}
+		});
+	</script>
+</body>
+</html>
