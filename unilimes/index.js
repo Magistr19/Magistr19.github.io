@@ -3,6 +3,8 @@ const selectFigure = document.getElementById('selectFigure');
 const scaleFigure = document.getElementById('scaleFigure');
 const uuidList = document.getElementById('uuidList');
 
+let items = [];
+
 let scale;
 let figure;
 
@@ -21,7 +23,11 @@ let figure;
 
 	function createListItem(uuid) {
 		function deleteItem() {
-			console.log(this.getAttribute('data-uuid'));
+			const deleteItem = items.find(el => el.uuid === this.getAttribute('data-uuid'));
+			items = items.filter(el => el.uuid !== this.getAttribute('data-uuid'));
+			
+			this.closest('li').remove();
+			scene.remove(deleteItem.getMesh());
 		}
 
 		const item = document.createElement('li');
@@ -117,7 +123,6 @@ let figure;
 	light.position.set( 1, 1, 1 );
 	scene.add( light );
 	
-  const items = [];
   function animate() {
 	  requestAnimationFrame( animate );
     items.forEach(item=>{
