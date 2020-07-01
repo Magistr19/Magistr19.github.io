@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+			body { 
+				margin: 0; 
+				position: relative;
+			}
+			canvas { 
+				width: 100%;
+				height: 100%; 
+			}
+
+			.uuid {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+			}
+
+			.uuid span {
+				color: #ffffff;
+			}
+	</style>
+</head>
+<body>
+
+	<main>
+		<form id="form">
+			<select id="selectFigure">
+				<option value="cube">Cube</option>
+				<option value="pyramid">Pyramid</option>
+				<option value="sphere">Sphere</option>
+			</select>
+
+			<input id="scaleFigure" type="number" min="1" max="10" value="1">
+
+			<button>Create</button>
+		</form>
+
+		<ul class="uuid" id="uuidList">
+			<!-- <li>
+				123
+				<button data-uuid="123"></button>
+			</li> -->
+		</ul>
+	</main>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r118/three.min.js"></script>
+	
+  <script src="index.js"></script>
+		
+</body>
+</html>
